@@ -16,5 +16,9 @@ public class Plosca {
         }
     }
 
+    public void odstrani(int x, int y){
+        polja[x][y] = Polje.ODSTRANJENO;
+    }
+
 
 }
