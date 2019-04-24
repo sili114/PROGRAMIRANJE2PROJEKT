@@ -1,7 +1,7 @@
 package logika;
 
 
-import sun.invoke.empty.Empty;
+import sun.invoke.empty.Empty; //Za kaj je to uporabno?
 
 import java.util.*;
 
@@ -16,7 +16,9 @@ public class Igra {
     public Igralec naPotezi;
 
     private boolean premikFigure;
-
+    
+    private LinkedList<Poteza> odstranjena_polja;
+    
     public Igra(){
 
         plosca = new Plosca();
@@ -71,11 +73,31 @@ public class Igra {
                     plosca.polja[crni.getY()][crni.getX()] = Polje.PRAZNO;
                     crni.prestavi(p.getX(),p.getY());
                 }
+                // Po premiku se premikFigure spremeni na false, po končani odstranitvi polja pa nazaj na true
+                premikFigure = false;
                 return true;
             }
             else return false;
 
         }
-        else 
+        //ker je premikFigure zdaj false, program razume, da je dana poteza odstranitev polj. Morda bi pomagalo, če se implementira nek seznam
+        // odstranjenih polj.
+        else {
+        	if (!odstranjena_polja.contains(p)) { //Če polje še ni odstranjeno
+        		if (plosca.polja[p.getY()][p.getX()] != Polje.CRNO && plosca.polja[p.getY()][p.getX()] != Polje.BELO) { //in če polje ne vsebuje figure
+        			plosca.polja[p.getY()][p.getX()] = Polje.ODSTRANJENO; //potem polje odstranimo
+        			odstranjena_polja.add(p); //dodamo potezo v seznam odstranjenih potez
+        			premikFigure = true; //ker smo polje odstranili nastavimo premikFigure nazaj na true
+        			return true;
+        		}
+        		else { //če polje vsebuje figuro
+        			return false;
+        		}
+        	}
+        	else {//polje je že odstranjeno
+        		return false;
+        	}
+        }
+   }
 
 }
