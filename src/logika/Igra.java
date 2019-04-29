@@ -15,9 +15,11 @@ public class Igra {
 
     public Igralec naPotezi;
 
+    private LinkedList<Poteza> odstranjena_polja;
+
     private boolean premikFigure;
 
-    public Igra(){
+    public Igra() {
 
         plosca = new Plosca();
 
@@ -27,13 +29,15 @@ public class Igra {
 
         premikFigure = true;
 
+        odstranjena_polja = new LinkedList<>();
+
         naPotezi = Igralec.BELI;
 
         plosca.polja[0][3] = Polje.BELO;
         plosca.polja[6][3] = Polje.CRNO;
     }
 
-    public List<Poteza> poteze(){
+    public List<Poteza> poteze() {
         LinkedList<Poteza> ps = new LinkedList<Poteza>();
         int x = (naPotezi == Igralec.BELI) ? beli.getX() : crni.getX();
         int y = (naPotezi == Igralec.BELI) ? beli.getY() : crni.getY();
@@ -49,13 +53,16 @@ public class Igra {
         return ps;
     }
 
-    public Stanje stanje(){
-        if (poteze().isEmpty()){
-            return(naPotezi == Igralec.BELI) ? Stanje.ZMAGA_BELI : Stanje.ZMAGA_CRNI;
+    public Stanje stanje() {
+        if (poteze().isEmpty()) {
+            return (naPotezi == Igralec.BELI) ? Stanje.ZMAGA_BELI : Stanje.ZMAGA_CRNI;
+        } else {
+            return (naPotezi == Igralec.BELI) ? Stanje.NA_POTEZI_BELI : Stanje.NA_POTEZI_CRNI;
         }
-        else{
-            return (naPotezi == Igralec.BELI) ? Stanje.NA_POTEZI_BELI: Stanje.NA_POTEZI_CRNI;
-        }
+    }
+
+    public Plosca getPlosca() {
+        return plosca;
     }
 
     public boolean odigraj(Poteza p){
@@ -71,11 +78,26 @@ public class Igra {
                     plosca.polja[crni.getY()][crni.getX()] = Polje.PRAZNO;
                     crni.prestavi(p.getX(),p.getY());
                 }
+                // Po premiku se premikFigure spremeni na false, po končani odstranitvi polja pa nazaj na true
+                premikFigure = false;
                 return true;
             }
             else return false;
 
         }
-        else 
+        //ker je premikFigure zdaj false, program razume, da je dana poteza odstranitev polj. Morda bi pomagalo, če se implementira nek seznam
+        // odstranjenih polj.
+        else {
+            if (plosca.polja[p.getY()][p.getX()] == Polje.PRAZNO) { //polje je prazno in ga lahko odstranimo
+                plosca.polja[p.getY()][p.getX()] = Polje.ODSTRANJENO;
+                premikFigure = true;
+                naPotezi = naPotezi.nasprotnik();
+                return true;
+            }
+            else return false; //polje je bodisi zasedeno bodisi odstranjeno
+            }
+        }
+
+
 
 }
