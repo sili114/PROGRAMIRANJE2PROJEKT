@@ -85,7 +85,7 @@ public class Igra {
         else {
         	if (!odstranjena_polja.contains(p)) { //Če polje še ni odstranjeno
         		if (plosca.polja[p.getY()][p.getX()] != Polje.CRNO && plosca.polja[p.getY()][p.getX()] != Polje.BELO) { //in če polje ne vsebuje figure
-        			plosca.odstrani(p.getY(), p.getX()); //potem polje odstranimo
+        			plosca.odstrani(p.getX(), p.getY()); //potem polje odstranimo
         			odstranjena_polja.add(p); //dodamo potezo v seznam odstranjenih potez
         			premikFigure = true; //ker smo polje odstranili nastavimo premikFigure nazaj na true
         			return true;
