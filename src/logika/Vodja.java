@@ -1,5 +1,9 @@
 package logika;
 
+import gui.GlavnoOkno;
+import java.util.List;
+import java.util.*;
+
 public class Vodja {
 
     // Glavno okno
@@ -13,10 +17,12 @@ public class Vodja {
 
     public boolean clovekNaVrsti;
 
+    public Random random;
+
     public Vodja(GlavnoOkno okno) {
         random = new Random();
         this.okno = okno;
-        clovekNaVrsti = false;
+        clovekNaVrsti = true;
     }
     // funckija za minimax da nardi kopijo igre in na njej odigra poteze in pol zračuna kire so najbolš.
     public void novaIgra(Igralec clovek) {
@@ -44,15 +50,22 @@ public class Vodja {
     }
 
     public void racunalnikovaPoteza() {
-        List<OcenjenaPoteza> ocenjenePoteze = Minimax.oceniPoteze (igra, 2, clovek.nasprotnik());
-        Poteza poteza = Minimax.maxPoteza(ocenjenePoteze);
+        List<Poteza> Poteze = igra.poteze();
+        int random = 0;
+        Poteza poteza = Poteze.get(random);
         igra.odigraj(poteza);
+        igramo();
+        List<Poteza> PraznaPolja = igra.prazna_polja();
+        int random2 = 0;
+        Poteza odstranjeno = PraznaPolja.get(random2);
+        igra.odigraj(odstranjeno);
         igramo();
     }
 
     public void clovekovaPoteza(Poteza poteza) {
         if (igra.odigraj(poteza)) {
-            clovekNaVrsti = false;
+            System.out.print(1);
+            if (igra.premikFigure)clovekNaVrsti = false;
             igramo();
         }
 
@@ -62,4 +75,4 @@ public class Vodja {
 
 }
 
-}
+

@@ -9,15 +9,13 @@ public class Igra {
 
     private Plosca plosca;
 
-    private Figura beli;
+    public Figura beli;
 
-    private Figura crni;
+    public Figura crni;
 
     public Igralec naPotezi;
 
-    private LinkedList<Poteza> odstranjena_polja;
-
-    private boolean premikFigure;
+    public boolean premikFigure;
 
     public Igra() {
 
@@ -28,8 +26,6 @@ public class Igra {
         crni = new Figura(3, 6);
 
         premikFigure = true;
-
-        odstranjena_polja = new LinkedList<>();
 
         naPotezi = Igralec.BELI;
 
@@ -53,9 +49,21 @@ public class Igra {
         return ps;
     }
 
+    public List<Poteza> prazna_polja() {
+        LinkedList<Poteza> ps = new LinkedList<Poteza>();
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; j < 7; j++) {
+            if (plosca.polja[j][i] == Polje.PRAZNO) ps.add(new Poteza(i, j));
+            }
+        }
+        return ps;
+    }
+
+
+
     public Stanje stanje() {
         if (poteze().isEmpty()) {
-            return (naPotezi == Igralec.BELI) ? Stanje.ZMAGA_BELI : Stanje.ZMAGA_CRNI;
+            return (naPotezi == Igralec.CRNI) ? Stanje.ZMAGA_BELI : Stanje.ZMAGA_CRNI;
         } else {
             return (naPotezi == Igralec.BELI) ? Stanje.NA_POTEZI_BELI : Stanje.NA_POTEZI_CRNI;
         }
@@ -65,10 +73,21 @@ public class Igra {
         return plosca;
     }
 
+    private boolean vsebuje(Poteza p){
+        for (Poteza h : poteze()){
+            if (h.getX() == p.getX() && h.getY() == p.getY()) return true;
+        }
+        return false;
+    }
+
     public boolean odigraj(Poteza p){
+        System.out.print(p);
         if (premikFigure){
-            if (poteze().contains(p)){
+            System.out.print("premikam");
+            if (vsebuje(p)){
+                System.out.print("veljavna");
                 if (naPotezi == Igralec.BELI){
+                    System.out.print("beli go go");
                     plosca.polja[p.getY()][p.getX()] = Polje.BELO;
                     plosca.polja[beli.getY()][beli.getX()] = Polje.PRAZNO;
                     beli.prestavi(p.getX(),p.getY());
@@ -89,7 +108,7 @@ public class Igra {
         // odstranjenih polj.
         else {
             if (plosca.polja[p.getY()][p.getX()] == Polje.PRAZNO) { //polje je prazno in ga lahko odstranimo
-                plosca.polja[p.getY()][p.getX()] = Polje.ODSTRANJENO;
+                plosca.odstrani(p.getY(),p.getX());
                 premikFigure = true;
                 naPotezi = naPotezi.nasprotnik();
                 return true;

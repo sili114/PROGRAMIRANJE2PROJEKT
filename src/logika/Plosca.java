@@ -2,7 +2,7 @@ package logika;
 
 public class Plosca {
 
-    Polje[][] polja;
+    public Polje[][] polja;
     public static final int N = 7;
 
 
