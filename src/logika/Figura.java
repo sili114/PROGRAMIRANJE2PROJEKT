@@ -3,13 +3,13 @@ import java.awt.*;
 
 public class Figura {
 	
-	public Color barva;
+	public Color barva; //Dodal barvo, da lahko program sam določi barvo figure
 	
-	private final Igralec igralec;
+	private Igralec igralec; // Igralec.BELI ali Igralec.CRNI
 
     private int x, y;
 
-    public Figura(int x, int y, Igralec lastnik){
+    public Figura(int x, int y, Igralec lastnik){ //figuro določata lokacija na plošči in lastnik
         this.x = x;
         this.y = y;
         this.igralec = lastnik;
@@ -29,8 +29,8 @@ public class Figura {
         return y;
     }
     
-    public void Barva (Igralec lastnik) {
-    	if (lastnik == Igralec.BELI) {
+    public void Barva () { //določi barvo, glede na lastnika
+    	if (igralec == Igralec.BELI) {
     		this.barva = Color.WHITE;
     	}
     	else {
@@ -45,3 +45,4 @@ public class Figura {
 
 
 }
+
