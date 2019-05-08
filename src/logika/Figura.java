@@ -1,12 +1,18 @@
 package logika;
+import java.awt.*;
 
 public class Figura {
+	
+	public Color barva;
+	
+	private final Igralec igralec;
 
     private int x, y;
 
-    public Figura(int x, int y){
+    public Figura(int x, int y, Igralec lastnik){
         this.x = x;
         this.y = y;
+        this.igralec = lastnik;
     }
 
     public void prestavi(int x, int y){
@@ -22,6 +28,15 @@ public class Figura {
     public int getY() {
         return y;
     }
+    
+    public void Barva (Igralec lastnik) {
+    	if (lastnik == Igralec.BELI) {
+    		this.barva = Color.WHITE;
+    	}
+    	else {
+    		this.barva = Color.BLACK;
+    	}
+    }
 
     @Override
     public String toString() {
@@ -30,4 +45,3 @@ public class Figura {
 
 
 }
-
