@@ -5,6 +5,8 @@ import sun.invoke.empty.Empty;
 
 import java.util.*;
 
+import static logika.Plosca.N;
+
 public class Igra {
 
     private Plosca plosca;
@@ -14,6 +16,8 @@ public class Igra {
     public Figura crni;
 
     public Igralec naPotezi;
+
+    public int stevecPotez;
 
     public boolean premikFigure;
 
@@ -27,37 +31,55 @@ public class Igra {
 
         premikFigure = true;
 
+        stevecPotez = 0;
+
         naPotezi = Igralec.BELI;
 
         plosca.polja[0][3] = Polje.BELO;
         plosca.polja[6][3] = Polje.CRNO;
     }
 
+    public List<Poteza> potezeDef(Igralec  igr){
+        LinkedList<Poteza> ps = new LinkedList<Poteza>();
+            int x = (igr == Igralec.BELI) ? beli.getX() : crni.getX();
+            int y = (igr == Igralec.BELI) ? beli.getY() : crni.getY();
+            for (int i = -1; i < 2; i++) {
+                for (int j = -1; j < 2; j++) {
+                    if (0 <= x + i && x + i < N && 0 <= y + j && y + j < N) {
+                        if (plosca.polja[y + j][x + i] == Polje.PRAZNO) {
+                            ps.add(new Poteza(x + i, y + j));
+                        }
+                    }
+                }
+            }
+            return ps; }
+
     public List<Poteza> poteze() {
         LinkedList<Poteza> ps = new LinkedList<Poteza>();
-        int x = (naPotezi == Igralec.BELI) ? beli.getX() : crni.getX();
-        int y = (naPotezi == Igralec.BELI) ? beli.getY() : crni.getY();
-        for (int i = -1; i < 2; i++) {
-            for (int j = -1; j < 2; j++) {
-                if (0 <= x + i && x + i < 7 && 0 <= y + j && y + j < 7) {
-                    if (plosca.polja[y + j][x + i] == Polje.PRAZNO) {
-                        ps.add(new Poteza(x + i, y + j));
+        if (premikFigure) {
+            int x = (naPotezi == Igralec.BELI) ? beli.getX() : crni.getX();
+            int y = (naPotezi == Igralec.BELI) ? beli.getY() : crni.getY();
+            for (int i = -1; i < 2; i++) {
+                for (int j = -1; j < 2; j++) {
+                    if (0 <= x + i && x + i < N && 0 <= y + j && y + j < N) {
+                        if (plosca.polja[y + j][x + i] == Polje.PRAZNO) {
+                            ps.add(new Poteza(x + i, y + j));
+                        }
                     }
                 }
             }
         }
-        return ps;
-    }
-
-    public List<Poteza> prazna_polja() {
-        LinkedList<Poteza> ps = new LinkedList<Poteza>();
-        for (int i = 0; i < 7; i++) {
-            for (int j = 0; j < 7; j++) {
-            if (plosca.polja[j][i] == Polje.PRAZNO) ps.add(new Poteza(i, j));
+        else {
+            for (int i = 0; i < N; i++) {
+                for (int j = 0; j < N; j++) {
+                    if (plosca.polja[j][i] == Polje.PRAZNO) ps.add(new Poteza(i, j));
             }
+        }
+
         }
         return ps;
     }
+
 
 
 
@@ -81,13 +103,9 @@ public class Igra {
     }
 
     public boolean odigraj(Poteza p){
-        System.out.print(p);
         if (premikFigure){
-            System.out.print("premikam");
             if (vsebuje(p)){
-                System.out.print("veljavna");
                 if (naPotezi == Igralec.BELI){
-                    System.out.print("beli go go");
                     plosca.polja[p.getY()][p.getX()] = Polje.BELO;
                     plosca.polja[beli.getY()][beli.getX()] = Polje.PRAZNO;
                     beli.prestavi(p.getX(),p.getY());
@@ -108,14 +126,32 @@ public class Igra {
         // odstranjenih polj.
         else {
             if (plosca.polja[p.getY()][p.getX()] == Polje.PRAZNO) { //polje je prazno in ga lahko odstranimo
-                plosca.odstrani(p.getY(),p.getX());
+                plosca.odstrani(p.getX(),p.getY());
                 premikFigure = true;
                 naPotezi = naPotezi.nasprotnik();
+                stevecPotez += 1;
                 return true;
             }
             else return false; //polje je bodisi zasedeno bodisi odstranjeno
             }
         }
+
+    public Igra(Igra igra) {
+        plosca = new Plosca();
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                plosca.polja[i][j] = igra.plosca.polja[i][j];
+            }
+        }
+        this.naPotezi = igra.naPotezi;
+        this.premikFigure = igra.premikFigure;
+        int crnix = igra.crni.getX();
+        int crniy = igra.crni.getY();
+        int belix = igra.beli.getX();
+        int beliy = igra.beli.getY();
+        this.crni = new Figura(crnix, crniy);
+        this.beli = new Figura(belix, beliy);
+    }
 
 
 

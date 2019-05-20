@@ -75,7 +75,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
         double r = w * (1.0 - LINE_WIDTH - 2.0 * PADDING); // premer O
         double x = w * (i + 0.5 * LINE_WIDTH + PADDING);
         double y = w * (j + 0.5 * LINE_WIDTH + PADDING);
-        if (plosca.polja[i][j] == Polje.BELO) {
+        if (plosca.polja[j][i] == Polje.BELO) {
             g2.setColor(Color.WHITE);
         }
         else {
@@ -100,7 +100,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
         double r = w * (1.0 - 0.025 * LINE_WIDTH); // premer O
         double x = w * (i + 0.5 * LINE_WIDTH);
         double y = w * (j + 0.5 * LINE_WIDTH);
-        if (plosca.polja[i][j] == Polje.ODSTRANJENO) {
+        if (plosca.polja[j][i] == Polje.ODSTRANJENO) {
             g2.setColor(Color.RED);
         }
         else {
@@ -138,17 +138,17 @@ public class IgralnoPolje extends JPanel implements MouseListener {
                     (int)(i * w));
         }
 
-        System.out.println(vodja);
+
 
         // figure
         if (vodja.igra != null) {
             plosca = vodja.igra.getPlosca();
             for (int i = 0; i < 7; ++i){
                 for (int j = 0; j < 7; ++j) {
-                    if (plosca.polja[i][j] == Polje.BELO) {
+                    if (plosca.polja[j][i] == Polje.BELO) {
                         paintFigura(g2, i, j);
                     }
-                    else if (plosca.polja[i][j] == Polje.CRNO) {
+                    else if (plosca.polja[j][i] == Polje.CRNO) {
                         paintFigura(g2, i, j);
                     }
 
@@ -156,8 +156,8 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 
                 }
             }
-            paintFigura(g2, vodja.igra.beli.getY(), vodja.igra.beli.getX());
-            paintFigura(g2, vodja.igra.crni.getY(), vodja.igra.crni.getX());
+            paintFigura(g2, vodja.igra.beli.getX(), vodja.igra.beli.getY());
+            paintFigura(g2, vodja.igra.crni.getX(), vodja.igra.crni.getY());
         }
     }
 

@@ -18,9 +18,8 @@ import logika.Igralec;
 
     @SuppressWarnings("serial")
     public class GlavnoOkno extends JFrame implements ActionListener {
-        /**
-         * JPanel, v katerega rišemo X in O
-         */
+
+
         private IgralnoPolje polje;
 
 
