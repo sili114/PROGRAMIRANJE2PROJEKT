@@ -3,7 +3,7 @@ package inteligenca;
 import logika.Poteza;
 
 
-public class OcenjenaPoteza {
+public class OcenjenaPoteza { //Poteza z doloèeno oceno
 
     Poteza poteza;
     int vrednost;

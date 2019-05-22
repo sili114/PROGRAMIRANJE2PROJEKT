@@ -1,12 +1,12 @@
 package logika;
 
-public class Plosca {
+public class Plosca { // Sestavimo igralno plošèo
 
     public Polje[][] polja;
-    public static final int N = 7;
+    public static final int N = 7; // Velikost N x N plošèe
 
 
-    public Plosca(){
+    public Plosca(){ // Na zaèetku je vsako polje za prazno
 
         polja = new Polje[N][N];
         for (int i=0; i< N; i++){
@@ -16,7 +16,7 @@ public class Plosca {
         }
     }
 
-    public void odstrani(int x, int y){
+    public void odstrani(int x, int y){ // Odstranimo prazno polje
         polja[y][x] = Polje.ODSTRANJENO;
     }
 

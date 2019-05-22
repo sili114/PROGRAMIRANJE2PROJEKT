@@ -17,7 +17,7 @@ import logika.Polje;
 import logika.Poteza;
 
 /**
- * Pravokotno obmocje, v katerem je narisano igralno polje.
+ * Pravokotno obmoèje, v katerem je narisano igralno polje.
  *
  * @author AS
  *
@@ -30,7 +30,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
     Plosca plosca;
 
     /**
-     * Relativna Sirina crte
+     * Relativna širina èrte
      */
     private final static double LINE_WIDTH = 0.1;
 
@@ -49,19 +49,19 @@ public class IgralnoPolje extends JPanel implements MouseListener {
     }
 
     @Override
-    public Dimension getPreferredSize() {
+    public Dimension getPreferredSize() { // Nastavimo velikost okna
         return new Dimension(387, 387);
     }
 
     /**
-     * @return Sirina enega kvadratka
+     * @return Širina enega kvadratka
      */
     private double squareWidth() {
         return Math.min(getWidth(), getHeight()) / logika.Plosca.N;
     }
 
     /**
-     * V graficni kontekst {@g2} narisi krog v polje {@(i,j)}
+     * V grafièni kontekst {@g2} nariši krog v polje {@(i,j)}
      * @param g2
      * @param i
      * @param j
@@ -87,6 +87,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
     }
 
     private void paintSquare(Graphics2D g2, int i, int j) {
+    // Pobarva polje:
         if (vodja.igra != null) {
             plosca = vodja.igra.getPlosca();
         }
@@ -94,23 +95,18 @@ public class IgralnoPolje extends JPanel implements MouseListener {
         double r = w * (1.0 - 0.025 * LINE_WIDTH); // premer O
         double x = w * (i + 0.5 * LINE_WIDTH);
         double y = w * (j + 0.5 * LINE_WIDTH);
+        
         Poteza k = new Poteza(i, j);
-        if (vodja.igra.vsebuje(k)) {
+        if (vodja.igra.vsebuje(k)) { // Èe je na tem polju možno izvesti kakšno potezo ga pobarva zeleno
         	g2.setColor(Color.GREEN);
         }
-        else if (plosca.polja[j][i] == Polje.ODSTRANJENO) {
+        else if (plosca.polja[j][i] == Polje.ODSTRANJENO) { // Èe je odstranjeno, ga pobarva rdeèe
             g2.setColor(Color.RED);
         }
-        else {
+        else { // Sicer naj bo pobarvano rumeno.
             g2.setColor(Color.YELLOW);
         }
-        //if (vodja.igra.naPotezi == logika.Igralec.BELI) {
-        //	g2.setColor(Color.BLACK);
-        //}
-        //else {
-        //	g2.setColor(Color.BLACK);
-        //}
-
+        // Pobarva polje s kvadratom.
         g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
         g2.fillRect((int)x, (int)y, (int)r , (int)r);
     }
@@ -123,7 +119,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 
         double w = squareWidth();
 
-        // Crte
+        // Èrte
         g2.setColor(Color.BLACK);
         g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
         for (int i = 0; i <= logika.Plosca.N; i++) {
@@ -139,7 +135,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 
 
 
-        // figure
+        // Figure
         if (vodja.igra != null) {
             plosca = vodja.igra.getPlosca();
             for (int i = 0; i < 7; ++i){
@@ -161,7 +157,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
+    public void mouseClicked(MouseEvent e) { // Izvede èlovekovo potezo, glede na klik na oknu.
         if (vodja.clovekNaVrsti) {
             int x = e.getX();
             int y = e.getY();

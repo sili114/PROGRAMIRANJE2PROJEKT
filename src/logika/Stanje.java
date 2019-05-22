@@ -1,6 +1,6 @@
 package logika;
 
-public enum Stanje {
+public enum Stanje { // Vsa možna stanja igre
     NA_POTEZI_BELI,
     NA_POTEZI_CRNI,
     ZMAGA_BELI,

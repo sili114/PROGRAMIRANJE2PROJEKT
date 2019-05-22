@@ -43,10 +43,10 @@ import logika.Igralec;
             this.setDefaultCloseOperation(EXIT_ON_CLOSE);
             this.setLayout(new GridBagLayout());
 
-            // vodja igre
+            // Vodja igre
             this.vodja = new Vodja(this);
 
-            // menu
+            // Menu
             JMenuBar menu_bar = new JMenuBar();
             this.setJMenuBar(menu_bar);
             JMenu igra_menu = new JMenu("Igra");
@@ -60,7 +60,7 @@ import logika.Igralec;
             igra_menu.add(igraClovekCRNI);
             igraClovekCRNI.addActionListener(this);
 
-            // igralno polje
+            // Igralno polje
             polje = new IgralnoPolje(vodja);
 
             GridBagConstraints polje_layout = new GridBagConstraints();
@@ -71,7 +71,7 @@ import logika.Igralec;
             polje_layout.weighty = 1.0;
             getContentPane().add(polje, polje_layout);
 
-            // statusna vrstica za sporoƒçila
+            // Statusna vrstica za sporoËila
             status = new JLabel();
             status.setFont(new Font(status.getFont().getName(),
                     status.getFont().getStyle(),
@@ -82,7 +82,7 @@ import logika.Igralec;
             status_layout.anchor = GridBagConstraints.CENTER;
             getContentPane().add(status, status_layout);
 
-            // zaƒçnemo novo igro ƒçloveka proti raƒçunalniku
+            // zaËnemo novo igro Ëloveka proti raËunalniku
 
             vodja.novaIgra(Igralec.BELI);
         }
@@ -99,7 +99,7 @@ import logika.Igralec;
 
         }
 
-        public void osveziGUI() {
+        public void osveziGUI() { // Po vsaki spremembi na novo nariöemo GUI.
             if (vodja.igra == null) {
                 status.setText("Igra ni v teku.");
             }

@@ -10,24 +10,24 @@ public class AlphaBeta {
 
     private static final Random RANDOM = new Random();
 
-    private static final int ZMAGA = (1 << 20); // vrednost zmage, veÃ„Â kot vsaka druga ocena pozicije
-    private static final int ZGUBA = -ZMAGA;  // vrednost izgube, mora biti -ZMAGA
+    private static final int ZMAGA = (1 << 20); // vrednost zmage, ki je veèja kot vsaka druga ocena pozicije
+    private static final int ZGUBA = -ZMAGA;  // vrednost izgube mora biti -ZMAGA
 
     private static final int GLOBINA = 6; // globalna globina algoritma minimax
 
     public static Poteza alphabetaVrzi (Igra igra, Igralec jaz) {
-        // Na zaÃ„Âetku alpha = ZGUBA in beta = ZMAGA
+        // Na zaèetku alpha = ZGUBA in beta = ZMAGA
         return alphabetaPoteze(igra, GLOBINA, ZGUBA, ZMAGA, jaz).poteza;
     }
 
     public static OcenjenaPoteza alphabetaPoteze(Igra igra, int globina, int alpha, int beta, Igralec jaz) {
         int ocena;
 
-        // Ã„ÂŒe sem raÃ„Âunalnik, maksimiramo oceno z zaÃ„Âetno oceno ZGUBA
-        // Ã„ÂŒe sem pa Ã„Âlovek, minimiziramo oceno z zaÃ„Âetno oceno ZMAGA
+        // Èe sem raèunalnik, maksimiramo oceno z zaèetno oceno ZGUBA
+        // Èe sem pa èlovek, minimiziramo oceno z zaèetno oceno ZMAGA
         if (igra.naPotezi == jaz) {ocena = ZGUBA;} else {ocena = ZMAGA;}
         List<Poteza> moznePoteze = igra.poteze();
-        Poteza kandidat = moznePoteze.get(0); // Mozno je, da se ne spremini vrednost kanditata. Zato ne more biti null.
+        Poteza kandidat = moznePoteze.get(0); // Možno je, da se ne spremini vrednost kanditata. Zato ne more biti null.
         for (Poteza p: moznePoteze) {
             Igra tempIgra = new Igra(igra);
             tempIgra.odigraj (p);
@@ -65,21 +65,26 @@ public class AlphaBeta {
     }
 
     private static int stevilo_okoliskih_polj(Igra igra, Igralec jaz){
+    	// Ne vem èemu služi ta metoda...
         int vsota = 0;
         Figura fig;
-        if (jaz == Igralec.BELI) fig = igra.beli;
-        else fig = igra.crni;
+        if (jaz == Igralec.BELI) {
+        	fig = igra.beli;
+        }
+        else {
+        	fig = igra.crni;
+        }
         for (int j= -2; j < 2; j++){
             for (int k=-2; k < 2; k++){
             }
         }
     return vsota;}
 
-    // Nakljucna ocena pozicije. Metoda ni uporabljena.
+    // Nakljuèna ocena pozicije. Metoda ni uporabljena.
     public static int oceniPozicijo(Igra igra, Igralec jaz) {
         int vsota = 0;
-        vsota += 3 * igra.potezeDef(jaz).size();
-        vsota -= 150 * igra.potezeDef(jaz.nasprotnik()).size();
+        vsota += 3.5 * igra.potezeDef(jaz).size();
+        vsota -= 175 * igra.potezeDef(jaz.nasprotnik()).size();
         if (igra.potezeDef(jaz).size() > igra.potezeDef(jaz.nasprotnik()).size()) vsota += 1000;
         if (igra.potezeDef(jaz.nasprotnik()).size() == 1) vsota += 10000;
         return vsota;
