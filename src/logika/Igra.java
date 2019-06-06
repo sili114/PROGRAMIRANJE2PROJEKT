@@ -1,11 +1,5 @@
 package logika;
 
-
-import java.awt.BasicStroke;
-import java.awt.Color;
-
-// import sun.invoke.empty.Empty;
-
 import java.util.*;
 
 import static logika.Plosca.N;

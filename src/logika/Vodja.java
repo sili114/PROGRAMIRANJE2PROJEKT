@@ -4,9 +4,7 @@ import gui.GlavnoOkno;
 import inteligenca.AlphaBeta;
 
 import javax.swing.*;
-import java.util.List;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 public class Vodja {
 

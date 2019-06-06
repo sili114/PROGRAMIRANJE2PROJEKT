@@ -35,7 +35,7 @@ import logika.Igralec;
         private JMenuItem igraClovekCRNI;
 
         /**
-         * Ustvari novo glavno okno in priƒçni igrati igro.
+         * Ustvari novo glavno okno in priËni igrati igro.
          */
         public GlavnoOkno() {
 

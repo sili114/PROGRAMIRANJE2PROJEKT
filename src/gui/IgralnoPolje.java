@@ -11,7 +11,6 @@ import java.awt.event.MouseListener;
 import javax.swing.JPanel;
 
 import logika.Vodja;
-import logika.Igra;
 import logika.Plosca;
 import logika.Polje;
 import logika.Poteza;
