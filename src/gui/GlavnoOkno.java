@@ -1,4 +1,5 @@
 
+
 package gui;
 
 import java.awt.Font;
@@ -35,7 +36,7 @@ import logika.Igralec;
         private JMenuItem igraClovekCRNI;
 
         /**
-         * Ustvari novo glavno okno in prièni igrati igro.
+         * Ustvari novo glavno okno in priï¿½ni igrati igro.
          */
         public GlavnoOkno() {
 
@@ -71,7 +72,7 @@ import logika.Igralec;
             polje_layout.weighty = 1.0;
             getContentPane().add(polje, polje_layout);
 
-            // Statusna vrstica za sporoèila
+            // Statusna vrstica za sporoï¿½ila
             status = new JLabel();
             status.setFont(new Font(status.getFont().getName(),
                     status.getFont().getStyle(),
@@ -82,7 +83,7 @@ import logika.Igralec;
             status_layout.anchor = GridBagConstraints.CENTER;
             getContentPane().add(status, status_layout);
 
-            // zaènemo novo igro èloveka proti raèunalniku
+            // zaï¿½nemo novo igro ï¿½loveka proti raï¿½unalniku
 
             vodja.novaIgra(Igralec.BELI);
         }
@@ -99,7 +100,7 @@ import logika.Igralec;
 
         }
 
-        public void osveziGUI() { // Po vsaki spremembi na novo narišemo GUI.
+        public void osveziGUI() { // Po vsaki spremembi na novo nariï¿½emo GUI.
             if (vodja.igra == null) {
                 status.setText("Igra ni v teku.");
             }

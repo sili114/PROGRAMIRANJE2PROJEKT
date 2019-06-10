@@ -1,12 +1,13 @@
+
 package logika;
 
-public class Plosca { // Sestavimo igralno plošèo
+public class Plosca { // Sestavimo igralno ploï¿½ï¿½o
 
     public Polje[][] polja;
-    public static final int N = 7; // Velikost N x N plošèe
+    public static final int N = 7; // Velikost N x N ploï¿½ï¿½e
 
 
-    public Plosca(){ // Na zaèetku je vsako polje za prazno
+    public Plosca(){ // Na zaï¿½etku je vsako polje za prazno
 
         polja = new Polje[N][N];
         for (int i=0; i< N; i++){

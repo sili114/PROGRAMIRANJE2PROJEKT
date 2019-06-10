@@ -1,3 +1,4 @@
+
 package logika;
 
 import java.util.*;
@@ -16,11 +17,11 @@ public class Igra {
 
     public int stevecPotez;
 
-    public boolean premikFigure; // Ali je Igralec (èlovek) že premaknil figuro, ali še ne?
+    public boolean premikFigure; // Ali je Igralec (ï¿½lovek) ï¿½e premaknil figuro, ali ï¿½e ne?
 
     public Igra() {
 
-        plosca = new Plosca(); // Postavimo plošèo in na njo obe figuri
+        plosca = new Plosca(); // Postavimo ploï¿½ï¿½o in na njo obe figuri
 
         beli = new Figura(3, 0); 
         plosca.polja[0][3] = Polje.BELO;
@@ -28,34 +29,34 @@ public class Igra {
         crni = new Figura(3, 6);
         plosca.polja[6][3] = Polje.CRNO;
         
-        premikFigure = true; // Premik figure še ni bil izveden
+        premikFigure = true; // Premik figure ï¿½e ni bil izveden
 
         stevecPotez = 0;
 
-        naPotezi = Igralec.BELI; // Zaène beli igralec
+        naPotezi = Igralec.BELI; // Zaï¿½ne beli igralec
 
         
         
     }
-
-    public List<Poteza> potezeDef(Igralec  igr){
-        LinkedList<Poteza> ps = new LinkedList<Poteza>();
-            int x = (igr == Igralec.BELI) ? beli.getX() : crni.getX();
-            int y = (igr == Igralec.BELI) ? beli.getY() : crni.getY();
-            for (int i = -1; i < 2; i++) {
-                for (int j = -1; j < 2; j++) {
-                    if (0 <= x + i && x + i < N && 0 <= y + j && y + j < N) {
-                        if (plosca.polja[y + j][x + i] == Polje.PRAZNO) {
-                            ps.add(new Poteza(x + i, y + j));
-                        }
-                    }
+  
+  public int steviloOkoliskihPolj(Igralec igr, int okolica) {
+        int vsota = 0;
+        int x = (igr == Igralec.BELI) ? beli.getX() : crni.getX();
+        int y = (igr == Igralec.BELI) ? beli.getY() : crni.getY();
+        for (int i = -okolica; i < okolica + 1; i++) {
+            for (int j = -okolica; j < okolica + 1; j++) {
+                if (0 <= x + i && x + i < N && 0 <= y + j && y + j < N) {
+                    if (plosca.polja[y + j][x + i] == Polje.PRAZNO) vsota++;
                 }
             }
-            return ps; }
+        }
+    return vsota;}
 
-    public List<Poteza> poteze() { // Vrne vse možne poteze za tega, ki je trenutno na vrsti.
+    
+
+    public List<Poteza> poteze() { // Vrne vse moï¿½ne poteze za tega, ki je trenutno na vrsti.
         LinkedList<Poteza> ps = new LinkedList<Poteza>();
-        if (premikFigure) { // Èe je v fazi premikanja, vrnemo vse možne premike
+        if (premikFigure) { // ï¿½e je v fazi premikanja, vrnemo vse moï¿½ne premike
             int x = (naPotezi == Igralec.BELI) ? beli.getX() : crni.getX();
             int y = (naPotezi == Igralec.BELI) ? beli.getY() : crni.getY();
             for (int i = -1; i < 2; i++) {
@@ -81,14 +82,14 @@ public class Igra {
 
 
     public Stanje stanje() {
-        if (poteze().isEmpty()) { // Èe Igralec ne more veè premakniti figure, imamo zmagovalca
+        if (poteze().isEmpty()) { // ï¿½e Igralec ne more veï¿½ premakniti figure, imamo zmagovalca
             return (naPotezi == Igralec.CRNI) ? Stanje.ZMAGA_BELI : Stanje.ZMAGA_CRNI;
         } else {
             return (naPotezi == Igralec.BELI) ? Stanje.NA_POTEZI_BELI : Stanje.NA_POTEZI_CRNI;
         }
     }
 
-    public Plosca getPlosca() { // Vrne plošèo.
+    public Plosca getPlosca() { // Vrne ploï¿½ï¿½o.
         return plosca;
     }
 
@@ -113,7 +114,7 @@ public class Igra {
                     plosca.polja[crni.getY()][crni.getX()] = Polje.PRAZNO;
                     crni.prestavi(p.getX(),p.getY());
                 }
-                // Po premiku se premikFigure spremeni na false, po konèani odstranitvi polja pa nazaj na true
+                // Po premiku se premikFigure spremeni na false, po konï¿½ani odstranitvi polja pa nazaj na true
                 premikFigure = false; // Sedaj smo v fazi odstranjevanja
                 return true;
             }
@@ -133,7 +134,7 @@ public class Igra {
             }
         }
 
-    public Igra(Igra igra) { // Postavimo igralno plošèo in nastavimo vse potrebne parametre
+    public Igra(Igra igra) { // Postavimo igralno ploï¿½ï¿½o in nastavimo vse potrebne parametre
         plosca = new Plosca();
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {

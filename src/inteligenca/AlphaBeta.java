@@ -1,34 +1,39 @@
+
 package inteligenca;
 
 import java.util.List;
+import java.util.Random;
+
 import logika.*;
+
 
 public class AlphaBeta {
 
-    private static final int ZMAGA = (1 << 20); // vrednost zmage, ki je veèja kot vsaka druga ocena pozicije
-    private static final int ZGUBA = -ZMAGA;  // vrednost izgube mora biti -ZMAGA
 
-    private static final int GLOBINA = 5; // globalna globina algoritma minimax
+    private static final int ZMAGA = (1 << 20); // vrednost zmage, veÃ„Â kot vsaka druga ocena pozicije
+    private static final int ZGUBA = -ZMAGA;  // vrednost izgube, mora biti -ZMAGA
+
+    private static final int GLOBINA = 6; // globalna globina algoritma minimax
 
     public static Poteza alphabetaVrzi (Igra igra, Igralec jaz) {
-        // Na zaèetku alpha = ZGUBA in beta = ZMAGA
+        // Na zaÃ„Âetku alpha = ZGUBA in beta = ZMAGA
         return alphabetaPoteze(igra, GLOBINA, ZGUBA, ZMAGA, jaz).poteza;
     }
 
     public static OcenjenaPoteza alphabetaPoteze(Igra igra, int globina, int alpha, int beta, Igralec jaz) {
         int ocena;
 
-        // Èe sem raèunalnik, maksimiramo oceno z zaèetno oceno ZGUBA
-        // Èe sem pa èlovek, minimiziramo oceno z zaèetno oceno ZMAGA
+        // Ã„ÂŒe sem raÃ„Âunalnik, maksimiramo oceno z zaÃ„Âetno oceno ZGUBA
+        // Ã„ÂŒe sem pa Ã„Âlovek, minimiziramo oceno z zaÃ„Âetno oceno ZMAGA
         if (igra.naPotezi == jaz) {ocena = ZGUBA;} else {ocena = ZMAGA;}
         List<Poteza> moznePoteze = igra.poteze();
-        Poteza kandidat = moznePoteze.get(0); // Možno je, da se ne spremeni vrednost kanditata. Zato ne more biti null.
+        Poteza kandidat = moznePoteze.get(0); // MoÄ¹Å¾no je, da se ne spremini vrednost kanditata. Zato ne more biti null.
         for (Poteza p: moznePoteze) {
             Igra tempIgra = new Igra(igra);
             tempIgra.odigraj (p);
             int ocenap = alphabetaPozicijo (tempIgra, globina-1, alpha, beta, jaz);
             if (igra.naPotezi == jaz) { // Maksimiramo oceno
-                if (ocenap > ocena) { // Za alphabeta mora biti > namesto >=
+                if (ocenap > ocena) {// Za alphabeta mora biti > namesto >=
                     ocena = ocenap;
                     kandidat = p;
                     alpha = Math.max(alpha,ocena);
@@ -59,14 +64,16 @@ public class AlphaBeta {
         }
     }
 
-    // Nakljuèna ocena pozicije.
+    
     public static int oceniPozicijo(Igra igra, Igralec jaz) {
         int vsota = 0;
-        vsota += 3.5 * igra.potezeDef(jaz).size();
-        vsota -= 175 * igra.potezeDef(jaz.nasprotnik()).size();
-        if (igra.potezeDef(jaz).size() > igra.potezeDef(jaz.nasprotnik()).size()) vsota += 1000;
-        if (igra.potezeDef(jaz.nasprotnik()).size() == 1) vsota += 10000;
+        vsota +=  50 * igra.steviloOkoliskihPolj(jaz, 1);
+        vsota +=  2.5 * igra.steviloOkoliskihPolj(jaz, 2);
+        vsota += 0.5 * igra.steviloOkoliskihPolj(jaz, 3);
+        vsota -= 10 * igra.steviloOkoliskihPolj(jaz.nasprotnik(), 3);
+        vsota -= 50 * igra.steviloOkoliskihPolj(jaz.nasprotnik(), 2);
+        vsota -=  150 * igra.steviloOkoliskihPolj(jaz.nasprotnik(), 1);
+        if (igra.steviloOkoliskihPolj(jaz.nasprotnik(), 1) == 1) vsota += 1000000;
         return vsota;
     }
 
-}

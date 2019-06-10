@@ -1,3 +1,4 @@
+
 package gui;
 
 import java.awt.BasicStroke;
@@ -16,7 +17,7 @@ import logika.Polje;
 import logika.Poteza;
 
 /**
- * Pravokotno obmoèje, v katerem je narisano igralno polje.
+ * Pravokotno obmoï¿½je, v katerem je narisano igralno polje.
  *
  * @author AS
  *
@@ -29,7 +30,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
     Plosca plosca;
 
     /**
-     * Relativna širina èrte
+     * Relativna ï¿½irina ï¿½rte
      */
     private final static double LINE_WIDTH = 0.1;
 
@@ -53,14 +54,14 @@ public class IgralnoPolje extends JPanel implements MouseListener {
     }
 
     /**
-     * @return Širina enega kvadratka
+     * @return ï¿½irina enega kvadratka
      */
     private double squareWidth() {
         return Math.min(getWidth(), getHeight()) / logika.Plosca.N;
     }
 
     /**
-     * V grafièni kontekst {@g2} nariši krog v polje {@(i,j)}
+     * V grafiï¿½ni kontekst {@g2} nariï¿½i krog v polje {@(i,j)}
      * @param g2
      * @param i
      * @param j
@@ -96,10 +97,10 @@ public class IgralnoPolje extends JPanel implements MouseListener {
         double y = w * (j + 0.5 * LINE_WIDTH);
         
         Poteza k = new Poteza(i, j);
-        if (vodja.igra.vsebuje(k)) { // Èe je na tem polju možno izvesti kakšno potezo ga pobarva zeleno
+        if (vodja.igra.vsebuje(k)) { // ï¿½e je na tem polju moï¿½no izvesti kakï¿½no potezo ga pobarva zeleno
         	g2.setColor(Color.GREEN);
         }
-        else if (plosca.polja[j][i] == Polje.ODSTRANJENO) { // Èe je odstranjeno, ga pobarva rdeèe
+        else if (plosca.polja[j][i] == Polje.ODSTRANJENO) { // ï¿½e je odstranjeno, ga pobarva rdeï¿½e
             g2.setColor(Color.RED);
         }
         else { // Sicer naj bo pobarvano rumeno.
@@ -118,7 +119,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 
         double w = squareWidth();
 
-        // Èrte
+        // ï¿½rte
         g2.setColor(Color.BLACK);
         g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
         for (int i = 0; i <= logika.Plosca.N; i++) {
@@ -156,7 +157,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) { // Izvede èlovekovo potezo, glede na klik na oknu.
+    public void mouseClicked(MouseEvent e) { // Izvede ï¿½lovekovo potezo, glede na klik na oknu.
         if (vodja.clovekNaVrsti) {
             int x = e.getX();
             int y = e.getY();
@@ -190,4 +191,4 @@ public class IgralnoPolje extends JPanel implements MouseListener {
     public void mouseExited(MouseEvent e) {
     }
 
-}
+

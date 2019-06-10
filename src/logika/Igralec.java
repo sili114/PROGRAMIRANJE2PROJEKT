@@ -1,7 +1,8 @@
+
 package logika;
 
 
-public enum Igralec { // Igralec lahko igra s èrno ali belo figuro
+public enum Igralec { // Igralec lahko igra s ï¿½rno ali belo figuro
     BELI, CRNI;
 
     public Igralec nasprotnik(){ // Nasprotnik igralca, ki je trenutno na vrsti
@@ -9,4 +10,5 @@ public enum Igralec { // Igralec lahko igra s èrno ali belo figuro
     }
 
 }
+
 

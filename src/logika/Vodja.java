@@ -1,3 +1,4 @@
+
 package logika;
 
 import gui.GlavnoOkno;
@@ -15,8 +16,8 @@ public class Vodja {
     public Igra igra;
 
 
-    // Ali je Igralec beli ali èrni?
-    private Igralec clovek; // Potrebujemo za primere, ko bomo morali loèiti med èlovekom in raèunalnikom
+    // Ali je Igralec beli ali ï¿½rni?
+    private Igralec clovek; // Potrebujemo za primere, ko bomo morali loï¿½iti med ï¿½lovekom in raï¿½unalnikom
 
     public boolean clovekNaVrsti;
 
@@ -31,7 +32,7 @@ public class Vodja {
     public void novaIgra(Igralec clovek) {
         // Ustvarimo novo igro
         this.igra = new Igra();
-        // Beli ali èrni igralec
+        // Beli ali ï¿½rni igralec
         this.clovek = clovek;
         igramo();
     }
@@ -40,23 +41,23 @@ public class Vodja {
     	// Preveri in upravlja s stanjem igre
         okno.osveziGUI();
         switch (igra.stanje()) {
-        	// Preveri, èe je kdo že zmagal
+        	// Preveri, ï¿½e je kdo ï¿½e zmagal
             case ZMAGA_BELI:
             case ZMAGA_CRNI:
                 break;
             // Nadaljuj, glede na to kdo je na vrsti
             case NA_POTEZI_BELI:
             case NA_POTEZI_CRNI:
-                if (igra.naPotezi == clovek) { // Èe je na vrsti èlovek, naj izvede svojo potezo
+                if (igra.naPotezi == clovek) { // ï¿½e je na vrsti ï¿½lovek, naj izvede svojo potezo
                     clovekNaVrsti = true;
-                } else { // Sicer odigraj raèunalnikovo potezo.
+                } else { // Sicer odigraj raï¿½unalnikovo potezo.
                     racunalnikovaPoteza();
                 }
         }
     }
 
     public void racunalnikovaPoteza() {
-    	// Odigra raèunalnikovo potezo.
+    	// Odigra raï¿½unalnikovo potezo.
             SwingWorker<Poteza, Void> worker = new SwingWorker<Poteza, Void> () {
                 private Igra zacetnaIgra = igra;
                 @Override
@@ -79,7 +80,7 @@ public class Vodja {
         }
 
 
-    public void clovekovaPoteza(Poteza poteza) { // Odigra èlovekovo potezo in spremlja v kateri fazi je
+    public void clovekovaPoteza(Poteza poteza) { // Odigra ï¿½lovekovo potezo in spremlja v kateri fazi je
         if (igra.odigraj(poteza)) {
             if (igra.premikFigure) {
             	clovekNaVrsti = false;
