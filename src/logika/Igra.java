@@ -39,20 +39,21 @@ public class Igra {
         plosca.polja[6][3] = Polje.CRNO;
     }
 
-    public List<Poteza> potezeDef(Igralec  igr){
-        LinkedList<Poteza> ps = new LinkedList<Poteza>();
-            int x = (igr == Igralec.BELI) ? beli.getX() : crni.getX();
-            int y = (igr == Igralec.BELI) ? beli.getY() : crni.getY();
-            for (int i = -1; i < 2; i++) {
-                for (int j = -1; j < 2; j++) {
-                    if (0 <= x + i && x + i < N && 0 <= y + j && y + j < N) {
-                        if (plosca.polja[y + j][x + i] == Polje.PRAZNO) {
-                            ps.add(new Poteza(x + i, y + j));
-                        }
-                    }
+
+
+
+    public int steviloOkoliskihPolj(Igralec igr, int okolica) {
+        int vsota = 0;
+        int x = (igr == Igralec.BELI) ? beli.getX() : crni.getX();
+        int y = (igr == Igralec.BELI) ? beli.getY() : crni.getY();
+        for (int i = -okolica; i < okolica + 1; i++) {
+            for (int j = -okolica; j < okolica + 1; j++) {
+                if (0 <= x + i && x + i < N && 0 <= y + j && y + j < N) {
+                    if (plosca.polja[y + j][x + i] == Polje.PRAZNO) vsota++;
                 }
             }
-            return ps; }
+        }
+    return vsota;}
 
     public List<Poteza> poteze() {
         LinkedList<Poteza> ps = new LinkedList<Poteza>();

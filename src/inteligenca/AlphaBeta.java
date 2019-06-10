@@ -8,7 +8,6 @@ import logika.*;
 
 public class AlphaBeta {
 
-    private static final Random RANDOM = new Random();
 
     private static final int ZMAGA = (1 << 20); // vrednost zmage, veÄ kot vsaka druga ocena pozicije
     private static final int ZGUBA = -ZMAGA;  // vrednost izgube, mora biti -ZMAGA
@@ -33,7 +32,7 @@ public class AlphaBeta {
             tempIgra.odigraj (p);
             int ocenap = alphabetaPozicijo (tempIgra, globina-1, alpha, beta, jaz);
             if (igra.naPotezi == jaz) { // Maksimiramo oceno
-                if (ocenap > ocena) { // Za alphabeta mora biti > namesto >=
+                if (ocenap > ocena) {// Za alphabeta mora biti > namesto >=
                     ocena = ocenap;
                     kandidat = p;
                     alpha = Math.max(alpha,ocena);
@@ -64,24 +63,16 @@ public class AlphaBeta {
         }
     }
 
-    private static int stevilo_okoliskih_polj(Igra igra, Igralec jaz){
-        int vsota = 0;
-        Figura fig;
-        if (jaz == Igralec.BELI) fig = igra.beli;
-        else fig = igra.crni;
-        for (int j= -2; j < 2; j++){
-            for (int k=-2; k < 2; k++){
-            }
-        }
-    return vsota;}
-
-    // Nakljucna ocena pozicije. Metoda ni uporabljena.
+    
     public static int oceniPozicijo(Igra igra, Igralec jaz) {
         int vsota = 0;
-        vsota += 5 * igra.potezeDef(jaz).size();
-        vsota -= 100 * igra.potezeDef(jaz.nasprotnik()).size();
-        if (igra.potezeDef(jaz).size() > igra.potezeDef(jaz.nasprotnik()).size()) vsota += 1000;
-        if (igra.potezeDef(jaz.nasprotnik()).size() == 1) vsota += 10000;
+        vsota +=  50 * igra.steviloOkoliskihPolj(jaz, 1);
+        vsota +=  2.5 * igra.steviloOkoliskihPolj(jaz, 2);
+        vsota += 0.5 * igra.steviloOkoliskihPolj(jaz, 3);
+        vsota -= 10 * igra.steviloOkoliskihPolj(jaz.nasprotnik(), 3);
+        vsota -= 50 * igra.steviloOkoliskihPolj(jaz.nasprotnik(), 2);
+        vsota -=  150 * igra.steviloOkoliskihPolj(jaz.nasprotnik(), 1);
+        if (igra.steviloOkoliskihPolj(jaz.nasprotnik(), 1) == 1) vsota += 1000000;
         return vsota;
     }
 
