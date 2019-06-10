@@ -1,3 +1,4 @@
+
 package inteligenca;
 
 import java.util.List;
@@ -76,4 +77,3 @@ public class AlphaBeta {
         return vsota;
     }
 
-}

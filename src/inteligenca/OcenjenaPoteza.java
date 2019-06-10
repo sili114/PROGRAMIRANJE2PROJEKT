@@ -1,9 +1,10 @@
+
 package inteligenca;
 
 import logika.Poteza;
 
 
-public class OcenjenaPoteza {
+public class OcenjenaPoteza { //Poteza z dolo�eno oceno
 
     Poteza poteza;
     int vrednost;
@@ -14,3 +15,4 @@ public class OcenjenaPoteza {
     }
 
 }
+

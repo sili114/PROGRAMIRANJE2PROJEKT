@@ -1,7 +1,5 @@
+
 package logika;
-
-
-import sun.invoke.empty.Empty;
 
 import java.util.*;
 
@@ -15,34 +13,33 @@ public class Igra {
 
     public Figura crni;
 
-    public Igralec naPotezi;
+    public Igralec naPotezi; // Igralec, ki je "trenutno" na potezi
 
     public int stevecPotez;
 
-    public boolean premikFigure;
+    public boolean premikFigure; // Ali je Igralec (�lovek) �e premaknil figuro, ali �e ne?
 
     public Igra() {
 
-        plosca = new Plosca();
+        plosca = new Plosca(); // Postavimo plo��o in na njo obe figuri
 
-        beli = new Figura(3, 0);
-
+        beli = new Figura(3, 0); 
+        plosca.polja[0][3] = Polje.BELO;
+        
         crni = new Figura(3, 6);
-
-        premikFigure = true;
+        plosca.polja[6][3] = Polje.CRNO;
+        
+        premikFigure = true; // Premik figure �e ni bil izveden
 
         stevecPotez = 0;
 
-        naPotezi = Igralec.BELI;
+        naPotezi = Igralec.BELI; // Za�ne beli igralec
 
-        plosca.polja[0][3] = Polje.BELO;
-        plosca.polja[6][3] = Polje.CRNO;
+        
+        
     }
-
-
-
-
-    public int steviloOkoliskihPolj(Igralec igr, int okolica) {
+  
+  public int steviloOkoliskihPolj(Igralec igr, int okolica) {
         int vsota = 0;
         int x = (igr == Igralec.BELI) ? beli.getX() : crni.getX();
         int y = (igr == Igralec.BELI) ? beli.getY() : crni.getY();
@@ -55,9 +52,11 @@ public class Igra {
         }
     return vsota;}
 
-    public List<Poteza> poteze() {
+    
+
+    public List<Poteza> poteze() { // Vrne vse mo�ne poteze za tega, ki je trenutno na vrsti.
         LinkedList<Poteza> ps = new LinkedList<Poteza>();
-        if (premikFigure) {
+        if (premikFigure) { // �e je v fazi premikanja, vrnemo vse mo�ne premike
             int x = (naPotezi == Igralec.BELI) ? beli.getX() : crni.getX();
             int y = (naPotezi == Igralec.BELI) ? beli.getY() : crni.getY();
             for (int i = -1; i < 2; i++) {
@@ -70,7 +69,7 @@ public class Igra {
                 }
             }
         }
-        else {
+        else { // Sicer vrnemo vsa polja, ki so primerna za odstranitev
             for (int i = 0; i < N; i++) {
                 for (int j = 0; j < N; j++) {
                     if (plosca.polja[j][i] == Polje.PRAZNO) ps.add(new Poteza(i, j));
@@ -82,30 +81,29 @@ public class Igra {
     }
 
 
-
-
     public Stanje stanje() {
-        if (poteze().isEmpty()) {
+        if (poteze().isEmpty()) { // �e Igralec ne more ve� premakniti figure, imamo zmagovalca
             return (naPotezi == Igralec.CRNI) ? Stanje.ZMAGA_BELI : Stanje.ZMAGA_CRNI;
         } else {
             return (naPotezi == Igralec.BELI) ? Stanje.NA_POTEZI_BELI : Stanje.NA_POTEZI_CRNI;
         }
     }
 
-    public Plosca getPlosca() {
+    public Plosca getPlosca() { // Vrne plo��o.
         return plosca;
     }
 
-    private boolean vsebuje(Poteza p){
+    public boolean vsebuje(Poteza p){ // Preveri, ali je dana poteza med dovoljenimi.
         for (Poteza h : poteze()){
             if (h.getX() == p.getX() && h.getY() == p.getY()) return true;
         }
         return false;
     }
-
+    
     public boolean odigraj(Poteza p){
-        if (premikFigure){
-            if (vsebuje(p)){
+        if (premikFigure){ // Smo v fazi premikanja
+        	
+            if (vsebuje(p)){ // Premik je dovoljen, zato ga izvedemo
                 if (naPotezi == Igralec.BELI){
                     plosca.polja[p.getY()][p.getX()] = Polje.BELO;
                     plosca.polja[beli.getY()][beli.getX()] = Polje.PRAZNO;
@@ -116,15 +114,14 @@ public class Igra {
                     plosca.polja[crni.getY()][crni.getX()] = Polje.PRAZNO;
                     crni.prestavi(p.getX(),p.getY());
                 }
-                // Po premiku se premikFigure spremeni na false, po končani odstranitvi polja pa nazaj na true
-                premikFigure = false;
+                // Po premiku se premikFigure spremeni na false, po kon�ani odstranitvi polja pa nazaj na true
+                premikFigure = false; // Sedaj smo v fazi odstranjevanja
                 return true;
             }
             else return false;
 
         }
-        //ker je premikFigure zdaj false, program razume, da je dana poteza odstranitev polj. Morda bi pomagalo, če se implementira nek seznam
-        // odstranjenih polj.
+        //ker je premikFigure zdaj false, program razume, da je dana poteza odstranitev polj. 
         else {
             if (plosca.polja[p.getY()][p.getX()] == Polje.PRAZNO) { //polje je prazno in ga lahko odstranimo
                 plosca.odstrani(p.getX(),p.getY());
@@ -137,7 +134,7 @@ public class Igra {
             }
         }
 
-    public Igra(Igra igra) {
+    public Igra(Igra igra) { // Postavimo igralno plo��o in nastavimo vse potrebne parametre
         plosca = new Plosca();
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {

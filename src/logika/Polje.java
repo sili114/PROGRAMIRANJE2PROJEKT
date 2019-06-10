@@ -2,10 +2,10 @@ package logika;
 
 /**
  * @author AS
- * MoÄ¹Å¾ne vrednosti polj na ploÄ¹Ä„Ã„Âi.
+ * Mone vrednosti polj na plošèi.
  */
 
-public enum Polje {
+public enum Polje { // Vsa mona stanja polja na plošèi
     PRAZNO,
     BELO,
     CRNO,

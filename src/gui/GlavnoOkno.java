@@ -1,4 +1,5 @@
 
+
 package gui;
 
 import java.awt.Font;
@@ -35,7 +36,7 @@ import logika.Igralec;
         private JMenuItem igraClovekCRNI;
 
         /**
-         * Ustvari novo glavno okno in prični igrati igro.
+         * Ustvari novo glavno okno in pri�ni igrati igro.
          */
         public GlavnoOkno() {
 
@@ -43,24 +44,24 @@ import logika.Igralec;
             this.setDefaultCloseOperation(EXIT_ON_CLOSE);
             this.setLayout(new GridBagLayout());
 
-            // vodja igre
+            // Vodja igre
             this.vodja = new Vodja(this);
 
-            // menu
+            // Menu
             JMenuBar menu_bar = new JMenuBar();
             this.setJMenuBar(menu_bar);
             JMenu igra_menu = new JMenu("Igra");
             menu_bar.add(igra_menu);
 
-            igraClovekBELI = new JMenuItem("Človek – BELI");
+            igraClovekBELI = new JMenuItem("Clovek - BELI");
             igra_menu.add(igraClovekBELI);
             igraClovekBELI.addActionListener(this);
 
-            igraClovekCRNI = new JMenuItem("Človek - CRNI");
+            igraClovekCRNI = new JMenuItem("Clovek - CRNI");
             igra_menu.add(igraClovekCRNI);
             igraClovekCRNI.addActionListener(this);
 
-            // igralno polje
+            // Igralno polje
             polje = new IgralnoPolje(vodja);
 
             GridBagConstraints polje_layout = new GridBagConstraints();
@@ -71,7 +72,7 @@ import logika.Igralec;
             polje_layout.weighty = 1.0;
             getContentPane().add(polje, polje_layout);
 
-            // statusna vrstica za sporočila
+            // Statusna vrstica za sporo�ila
             status = new JLabel();
             status.setFont(new Font(status.getFont().getName(),
                     status.getFont().getStyle(),
@@ -82,7 +83,7 @@ import logika.Igralec;
             status_layout.anchor = GridBagConstraints.CENTER;
             getContentPane().add(status, status_layout);
 
-            // začnemo novo igro človeka proti računalniku
+            // za�nemo novo igro �loveka proti ra�unalniku
 
             vodja.novaIgra(Igralec.BELI);
         }
@@ -99,7 +100,7 @@ import logika.Igralec;
 
         }
 
-        public void osveziGUI() {
+        public void osveziGUI() { // Po vsaki spremembi na novo nari�emo GUI.
             if (vodja.igra == null) {
                 status.setText("Igra ni v teku.");
             }

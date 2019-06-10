@@ -1,6 +1,6 @@
 package logika;
 
-public class Poteza {
+public class Poteza { // Poteza je doloèena s koordinatami na plošèi
     private int x;
     private int y;
 
@@ -9,16 +9,16 @@ public class Poteza {
         this.y = y;
     }
 
-    public int getX() {
+    public int getX() { // Vrne koordinato X
         return x;
     }
 
-    public int getY() {
+    public int getY() { // Vrne koordinato Y
         return y;
     }
 
     @Override
-    public String toString() {
+    public String toString() { // Izpiše potezo
         return "Poteza [x=" + x + ", y=" + y + "]";
     }
 }

@@ -1,3 +1,4 @@
+
 package gui;
 
 import java.awt.BasicStroke;
@@ -11,13 +12,12 @@ import java.awt.event.MouseListener;
 import javax.swing.JPanel;
 
 import logika.Vodja;
-import logika.Igra;
 import logika.Plosca;
 import logika.Polje;
 import logika.Poteza;
 
 /**
- * Pravokotno obmoèje, v katerem je narisano igralno polje.
+ * Pravokotno obmo�je, v katerem je narisano igralno polje.
  *
  * @author AS
  *
@@ -30,7 +30,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
     Plosca plosca;
 
     /**
-     * Relativna širina èrte
+     * Relativna �irina �rte
      */
     private final static double LINE_WIDTH = 0.1;
 
@@ -49,19 +49,19 @@ public class IgralnoPolje extends JPanel implements MouseListener {
     }
 
     @Override
-    public Dimension getPreferredSize() {
+    public Dimension getPreferredSize() { // Nastavimo velikost okna
         return new Dimension(387, 387);
     }
 
     /**
-     * @return širina enega kvadratka
+     * @return �irina enega kvadratka
      */
     private double squareWidth() {
         return Math.min(getWidth(), getHeight()) / logika.Plosca.N;
     }
 
     /**
-     * V grafièni kontekst {@g2} nariši križec v polje {@(i,j)}
+     * V grafi�ni kontekst {@g2} nari�i krog v polje {@(i,j)}
      * @param g2
      * @param i
      * @param j
@@ -81,18 +81,13 @@ public class IgralnoPolje extends JPanel implements MouseListener {
         else {
             g2.setColor(Color.BLACK);
         }
-        //if (vodja.igra.naPotezi == logika.Igralec.BELI) {
-        //	g2.setColor(Color.BLACK);
-        //}
-        //else {
-        //	g2.setColor(Color.BLACK);
-        //}
 
         g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
         g2.fillOval((int)x, (int)y, (int)r , (int)r);
     }
 
     private void paintSquare(Graphics2D g2, int i, int j) {
+    // Pobarva polje:
         if (vodja.igra != null) {
             plosca = vodja.igra.getPlosca();
         }
@@ -100,23 +95,23 @@ public class IgralnoPolje extends JPanel implements MouseListener {
         double r = w * (1.0 - 0.025 * LINE_WIDTH); // premer O
         double x = w * (i + 0.5 * LINE_WIDTH);
         double y = w * (j + 0.5 * LINE_WIDTH);
-        if (plosca.polja[j][i] == Polje.ODSTRANJENO) {
+        
+        Poteza k = new Poteza(i, j);
+        if (vodja.igra.vsebuje(k)) { // �e je na tem polju mo�no izvesti kak�no potezo ga pobarva zeleno
+        	g2.setColor(Color.GREEN);
+        }
+        else if (plosca.polja[j][i] == Polje.ODSTRANJENO) { // �e je odstranjeno, ga pobarva rde�e
             g2.setColor(Color.RED);
         }
-        else {
+        else { // Sicer naj bo pobarvano rumeno.
             g2.setColor(Color.YELLOW);
         }
-        //if (vodja.igra.naPotezi == logika.Igralec.BELI) {
-        //	g2.setColor(Color.BLACK);
-        //}
-        //else {
-        //	g2.setColor(Color.BLACK);
-        //}
-
+        // Pobarva polje s kvadratom.
         g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
         g2.fillRect((int)x, (int)y, (int)r , (int)r);
     }
 
+    
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -124,7 +119,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 
         double w = squareWidth();
 
-        // èrte
+        // �rte
         g2.setColor(Color.BLACK);
         g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
         for (int i = 0; i <= logika.Plosca.N; i++) {
@@ -140,7 +135,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 
 
 
-        // figure
+        // Figure
         if (vodja.igra != null) {
             plosca = vodja.igra.getPlosca();
             for (int i = 0; i < 7; ++i){
@@ -162,7 +157,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
+    public void mouseClicked(MouseEvent e) { // Izvede �lovekovo potezo, glede na klik na oknu.
         if (vodja.clovekNaVrsti) {
             int x = e.getX();
             int y = e.getY();
@@ -196,4 +191,4 @@ public class IgralnoPolje extends JPanel implements MouseListener {
     public void mouseExited(MouseEvent e) {
     }
 
-}
+
