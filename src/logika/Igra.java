@@ -15,9 +15,7 @@ public class Igra {
 
     public Igralec naPotezi; // Igralec, ki je "trenutno" na potezi
 
-    public int stevecPotez;
-
-    public boolean premikFigure; // Ali je Igralec (�lovek) �e premaknil figuro, ali �e ne?
+    public boolean premikFigure; // če true mora igralec premakniti figuro, sicer odstranjuje polja
 
     public Igra() {
 
@@ -31,14 +29,13 @@ public class Igra {
         
         premikFigure = true; // Premik figure �e ni bil izveden
 
-        stevecPotez = 0;
 
         naPotezi = Igralec.BELI; // Za�ne beli igralec
 
         
         
     }
-  
+  // funkcijo bomo potrebovali pri minimaxu za oceno poteze
   public int steviloOkoliskihPolj(Igralec igr, int okolica) {
         int vsota = 0;
         int x = (igr == Igralec.BELI) ? beli.getX() : crni.getX();
@@ -114,7 +111,7 @@ public class Igra {
                     plosca.polja[crni.getY()][crni.getX()] = Polje.PRAZNO;
                     crni.prestavi(p.getX(),p.getY());
                 }
-                // Po premiku se premikFigure spremeni na false, po kon�ani odstranitvi polja pa nazaj na true
+                // Po premiku se premikFigure spremeni na false, po končani odstranitvi polja pa nazaj na true
                 premikFigure = false; // Sedaj smo v fazi odstranjevanja
                 return true;
             }
@@ -127,14 +124,13 @@ public class Igra {
                 plosca.odstrani(p.getX(),p.getY());
                 premikFigure = true;
                 naPotezi = naPotezi.nasprotnik();
-                stevecPotez += 1;
                 return true;
             }
             else return false; //polje je bodisi zasedeno bodisi odstranjeno
             }
         }
 
-    public Igra(Igra igra) { // Postavimo igralno plo��o in nastavimo vse potrebne parametre
+    public Igra(Igra igra) { // Postavimo igralno ploščo in nastavimo vse potrebne parametre
         plosca = new Plosca();
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {

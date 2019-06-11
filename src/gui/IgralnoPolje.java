@@ -62,6 +62,7 @@ public class IgralnoPolje extends JPanel implements MouseListener {
 
     /**
      * V grafi�ni kontekst {@g2} nari�i krog v polje {@(i,j)}
+     *
      * @param g2
      * @param i
      * @param j
@@ -77,17 +78,16 @@ public class IgralnoPolje extends JPanel implements MouseListener {
         double y = w * (j + 0.5 * LINE_WIDTH + PADDING);
         if (plosca.polja[j][i] == Polje.BELO) {
             g2.setColor(Color.WHITE);
-        }
-        else {
+        } else {
             g2.setColor(Color.BLACK);
         }
 
         g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
-        g2.fillOval((int)x, (int)y, (int)r , (int)r);
+        g2.fillOval((int) x, (int) y, (int) r, (int) r);
     }
 
     private void paintSquare(Graphics2D g2, int i, int j) {
-    // Pobarva polje:
+        // Pobarva polje:
         if (vodja.igra != null) {
             plosca = vodja.igra.getPlosca();
         }
@@ -95,55 +95,51 @@ public class IgralnoPolje extends JPanel implements MouseListener {
         double r = w * (1.0 - 0.025 * LINE_WIDTH); // premer O
         double x = w * (i + 0.5 * LINE_WIDTH);
         double y = w * (j + 0.5 * LINE_WIDTH);
-        
+
         Poteza k = new Poteza(i, j);
-        if (vodja.igra.vsebuje(k)) { // �e je na tem polju mo�no izvesti kak�no potezo ga pobarva zeleno
-        	g2.setColor(Color.GREEN);
-        }
-        else if (plosca.polja[j][i] == Polje.ODSTRANJENO) { // �e je odstranjeno, ga pobarva rde�e
+        if (vodja.igra.vsebuje(k) && vodja.igra.premikFigure) { // če je na tem polju možno izvesti kakšno potezo ga pobarva zeleno
+            g2.setColor(Color.GREEN);
+        } else if (plosca.polja[j][i] == Polje.ODSTRANJENO) { // će je odstranjeno, ga pobarva rdeče
             g2.setColor(Color.RED);
-        }
-        else { // Sicer naj bo pobarvano rumeno.
+        } else { // Sicer naj bo pobarvano rumeno.
             g2.setColor(Color.YELLOW);
         }
         // Pobarva polje s kvadratom.
         g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
-        g2.fillRect((int)x, (int)y, (int)r , (int)r);
+        g2.fillRect((int) x, (int) y, (int) r, (int) r);
     }
 
-    
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D)g;
+        Graphics2D g2 = (Graphics2D) g;
 
         double w = squareWidth();
 
-        // �rte
+        // črte
         g2.setColor(Color.BLACK);
         g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
         for (int i = 0; i <= logika.Plosca.N; i++) {
-            g2.drawLine((int)(i * w),
-                    (int)(0),
-                    (int)(i * w),
-                    (int)(logika.Plosca.N * w));
-            g2.drawLine((int)(0),
-                    (int)(i * w),
-                    (int)(logika.Plosca.N * w),
-                    (int)(i * w));
+            g2.drawLine((int) (i * w),
+                    (int) (0),
+                    (int) (i * w),
+                    (int) (logika.Plosca.N * w));
+            g2.drawLine((int) (0),
+                    (int) (i * w),
+                    (int) (logika.Plosca.N * w),
+                    (int) (i * w));
         }
-
 
 
         // Figure
         if (vodja.igra != null) {
             plosca = vodja.igra.getPlosca();
-            for (int i = 0; i < 7; ++i){
+            for (int i = 0; i < 7; ++i) {
                 for (int j = 0; j < 7; ++j) {
                     if (plosca.polja[j][i] == Polje.BELO) {
                         paintFigura(g2, i, j);
-                    }
-                    else if (plosca.polja[j][i] == Polje.CRNO) {
+                    } else if (plosca.polja[j][i] == Polje.CRNO) {
                         paintFigura(g2, i, j);
                     }
 
@@ -157,15 +153,15 @@ public class IgralnoPolje extends JPanel implements MouseListener {
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) { // Izvede �lovekovo potezo, glede na klik na oknu.
+    public void mouseClicked(MouseEvent e) { // Izvede človekovo potezo, glede na klik na oknu.
         if (vodja.clovekNaVrsti) {
             int x = e.getX();
             int y = e.getY();
-            int w = (int)(squareWidth());
-            int i = x / w ;
-            double di = (x % w) / squareWidth() ;
-            int j = y / w ;
-            double dj = (y % w) / squareWidth() ;
+            int w = (int) (squareWidth());
+            int i = x / w;
+            double di = (x % w) / squareWidth();
+            int j = y / w;
+            double dj = (y % w) / squareWidth();
             if (0 <= i && i < Plosca.N &&
                     0.5 * LINE_WIDTH < di && di < 1.0 - 0.5 * LINE_WIDTH &&
                     0 <= j && j < Plosca.N &&
@@ -190,5 +186,5 @@ public class IgralnoPolje extends JPanel implements MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
     }
-
+}
 

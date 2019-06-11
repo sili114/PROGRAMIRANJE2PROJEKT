@@ -72,7 +72,7 @@ import logika.Igralec;
             polje_layout.weighty = 1.0;
             getContentPane().add(polje, polje_layout);
 
-            // Statusna vrstica za sporo�ila
+            // Statusna vrstica za sporočila
             status = new JLabel();
             status.setFont(new Font(status.getFont().getName(),
                     status.getFont().getStyle(),
@@ -83,7 +83,7 @@ import logika.Igralec;
             status_layout.anchor = GridBagConstraints.CENTER;
             getContentPane().add(status, status_layout);
 
-            // za�nemo novo igro �loveka proti ra�unalniku
+            // začnemo novo igro človeka proti računalniku
 
             vodja.novaIgra(Igralec.BELI);
         }
@@ -100,16 +100,17 @@ import logika.Igralec;
 
         }
 
-        public void osveziGUI() { // Po vsaki spremembi na novo nari�emo GUI.
+        public void osveziGUI() { // Po vsaki spremembi na novo narišemo GUI.
             if (vodja.igra == null) {
                 status.setText("Igra ni v teku.");
             }
             else {
+                String delIgre = (vodja.igra.premikFigure)? "Premakni figuro!" : "Odstrani polje!";
                 switch(vodja.igra.stanje()) {
-                    case NA_POTEZI_BELI: status.setText("Na potezi je BELI"); break;
-                    case NA_POTEZI_CRNI: status.setText("Na potezi je CRNI"); break;
-                    case ZMAGA_BELI: status.setText("Zmagal je BELI"); break;
-                    case ZMAGA_CRNI: status.setText("Zmagal je CRNI"); break;
+                    case NA_POTEZI_BELI : status.setText("Na potezi je BELI! " + delIgre); break;
+                    case NA_POTEZI_CRNI: status.setText("Na potezi je CRNI! " + delIgre); break;
+                    case ZMAGA_BELI: status.setText("Zmagal je BELI!"); break;
+                    case ZMAGA_CRNI: status.setText("Zmagal je CRNI!"); break;
                 }
             }
             polje.repaint();
